@@ -1,35 +1,57 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import {Box, Container, Divider, Stack} from "@mui/material";
+import CreateTaskForm from "./components/CreateTaskForm.tsx";
+import TaskList from "./components/TaskList.tsx";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      <Box
+          sx={{
+              backgroundColor: "#DADADA",
+              p: { xs: 1, sm: 2, md: 3 },
+              border: "1px solid black",
+              borderRadius: 4,
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+          }}
+      >
+          <QueryClientProvider client={queryClient}>
+              <Container
+                  sx={{
+                      backgroundColor: "#ffffff",
+                      p: 2,
+                      borderRadius: 4,
+                      display: "flex",
+                      justifyContent: "center",
+                      height: { xs: "auto", md: "90vh" },
+                  }}
+              >
+                  <Stack
+                      direction={{ xs: "column", md: "row" }}
+                      spacing={{ xs: 2, md: 3 }}
+                      divider={
+                        <Divider
+                          orientation="vertical"
+                          flexItem
+                          sx={{
+                              borderWidth: 2
+                          }}
+                        />
+                      }
+                  >
+                      <CreateTaskForm />
+                      <TaskList />
+                  </Stack>
+              </Container>
+          </QueryClientProvider>
+      </Box>
+  );
+};
 
-export default App
+export default App;
