@@ -1,3 +1,4 @@
-.idea
+.idea/
 .env
+*.iml
 to-do task web.iml
